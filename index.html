@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow AI — Smart Study Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="StudyFlow AI home">
+        <span class="brand-mark">✦</span>
+        <span>StudyFlow <small>AI STUDY PLANNER</small></span>
+      </a>
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-item" data-view="planner"><span>▤</span> Weekly planner</button>
+        <button class="nav-item" data-view="tasks"><span>☑</span> My tasks</button>
+        <button class="nav-item" data-view="subjects"><span>◈</span> Subjects & deadlines</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="focus-card">
+          <span class="focus-icon">✧</span>
+          <h3>Small steps count.</h3>
+          <p>Consistency beats last-minute cramming. You've got this!</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">S</div>
+          <div><strong>Student workspace</strong><small>Your personal planner</small></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">✦</span> StudyFlow AI</div>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb-current">Dashboard</strong></div>
+        <div class="top-actions"><span class="today-label" id="today-label"></span><button class="button button-primary" id="quick-add">＋ Add task</button></div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="welcome-row">
+          <div><p class="eyebrow">YOUR LEARNING SPACE</p><h1>Make today count<span class="period">.</span></h1><p class="muted">A little progress every day adds up to something big.</p></div>
+          <div class="week-chip"><span class="chip-dot"></span><span id="week-label">YOUR WEEK</span></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Tasks completed</span><span class="stat-icon mint">✓</span></div><div class="stat-number" id="stat-completed">0</div><div class="stat-foot"><span id="completion-caption">0 of 0 tasks</span><span class="mini-track"><i id="completion-bar"></i></span></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Study hours planned</span><span class="stat-icon lavender">◷</span></div><div class="stat-number"><span id="stat-hours">0</span><small> hrs</small></div><div class="stat-foot">Across your weekly plan</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Upcoming deadlines</span><span class="stat-icon peach">⚑</span></div><div class="stat-number" id="stat-deadlines">0</div><div class="stat-foot">Exams and assignments</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Study streak</span><span class="stat-icon yellow">✦</span></div><div class="stat-number"><span id="stat-streak">0</span><small> days</small></div><div class="stat-foot">Keep showing up for yourself</div></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel schedule-panel">
+            <div class="panel-heading"><div><p class="eyebrow">STAY ON TRACK</p><h2>This week's plan</h2></div><button class="text-button" data-go="planner">View full planner ↗</button></div>
+            <div class="week-days" id="week-days"></div>
+            <div id="today-schedule" class="schedule-list"></div>
+            <div class="empty-state hidden" id="dashboard-empty"><span>☀</span><h3>Your schedule is clear</h3><p>Add a task or generate a study plan to get started.</p><button class="button button-primary" data-go="tasks">Create a task</button></div>
+          </section>
+          <section class="panel priority-panel">
+            <div class="panel-heading"><div><p class="eyebrow">DON'T LEAVE IT LATE</p><h2>Coming up</h2></div><span class="soft-count" id="upcoming-count">0</span></div>
+            <div id="upcoming-list" class="upcoming-list"></div>
+            <div class="panel-tip"><span>✧</span><p><strong>Study tip</strong><br>Try 25 minutes of focus, then take a 5-minute break.</p></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-planner">
+        <div class="page-heading"><div><p class="eyebrow">YOUR TIME, YOUR PACE</p><h1>Weekly planner</h1><p class="muted">Build a realistic schedule around your available study hours.</p></div><button class="button button-primary" id="generate-plan">✦ Generate my plan</button></div>
+        <div class="planner-controls panel">
+          <div><label for="daily-hours">Available study hours per day</label><select id="daily-hours"><option value="1">1 hour</option><option value="2">2 hours</option><option value="3" selected>3 hours</option><option value="4">4 hours</option><option value="5">5 hours</option><option value="6">6 hours</option></select></div>
+          <div><label for="study-start">Preferred start time</label><select id="study-start"><option value="08:00">8:00 AM</option><option value="10:00">10:00 AM</option><option value="13:00" selected>1:00 PM</option><option value="16:00">4:00 PM</option><option value="18:00">6:00 PM</option><option value="19:00">7:00 PM</option></select></div>
+          <p class="planner-note">The planner prioritizes exams and nearer deadlines. Generated times are suggestions you can edit.</p>
+        </div>
+        <div class="week-calendar" id="week-calendar"></div>
+        <div class="notice"><strong>How auto-planning works:</strong> tasks with earlier deadlines and higher priorities are scheduled first. Missed tasks can be rescheduled into future open slots.</div>
+      </section>
+
+      <section class="view" id="view-tasks">
+        <div class="page-heading"><div><p class="eyebrow">ONE TASK AT A TIME</p><h1>My tasks</h1><p class="muted">Capture everything you need to study, then focus on what matters most.</p></div><button class="button button-primary" id="tasks-add">＋ Add task</button></div>
+        <div class="filter-row panel"><div class="search-wrap"><span>⌕</span><input id="task-search" type="search" placeholder="Search tasks or subjects..."></div><select id="task-filter" aria-label="Filter tasks"><option value="all">All tasks</option><option value="active">Not completed</option><option value="completed">Completed</option><option value="missed">Needs rescheduling</option></select><select id="task-sort" aria-label="Sort tasks"><option value="deadline">Sort: Deadline</option><option value="priority">Sort: Priority</option><option value="created">Sort: Recently added</option></select></div>
+        <div class="task-list panel" id="all-tasks"></div>
+      </section>
+
+      <section class="view" id="view-subjects">
+        <div class="page-heading"><div><p class="eyebrow">KNOW WHAT'S AHEAD</p><h1>Subjects & deadlines</h1><p class="muted">Manage subjects, exams, projects, and other academic deadlines.</p></div><button class="button button-primary" id="subjects-add">＋ Add subject</button></div>
+        <div class="subject-grid" id="subject-grid"></div>
+        <div class="panel deadlines-panel"><div class="panel-heading"><div><p class="eyebrow">MARK YOUR CALENDAR</p><h2>All deadlines</h2></div></div><div id="all-deadlines"></div></div>
+      </section>
+
+      <footer>Made for better habits, calmer deadlines, and more confident students. <span>StudyFlow AI · Prototype</span></footer>
+    </main>
+  </div>
+
+  <dialog id="task-dialog" class="modal">
+    <form id="task-form">
+      <div class="modal-heading"><div><p class="eyebrow">PLAN YOUR PROGRESS</p><h2 id="task-modal-title">Add a study task</h2></div><button type="button" class="icon-button" data-close="task-dialog" aria-label="Close">✕</button></div>
+      <input type="hidden" id="task-id">
+      <div class="form-grid">
+        <div class="field full"><label for="task-title">Task name *</label><input id="task-title" required maxlength="100" placeholder="e.g. Review Chapter 3"></div>
+        <div class="field"><label for="task-subject">Subject *</label><input id="task-subject" required maxlength="60" placeholder="e.g. Data Mining" list="subject-options"><datalist id="subject-options"></datalist></div>
+        <div class="field"><label for="task-type">Task type</label><select id="task-type"><option>Study session</option><option>Exam</option><option>Assignment</option><option>Project</option><option>Reading</option></select></div>
+        <div class="field"><label for="task-deadline">Deadline *</label><input id="task-deadline" type="date" required></div>
+        <div class="field"><label for="task-duration">Estimated time</label><select id="task-duration"><option value="30">30 minutes</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option><option value="180">3 hours</option><option value="240">4 hours</option></select></div>
+        <div class="field"><label for="task-priority">Priority</label><select id="task-priority"><option value="1">Low</option><option value="2" selected>Medium</option><option value="3">High</option><option value="4">Urgent</option></select></div>
+        <div class="field"><label for="task-day">Preferred study day</label><select id="task-day"><option value="auto">Auto-assign</option><option value="0">Monday</option><option value="1">Tuesday</option><option value="2">Wednesday</option><option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option><option value="6">Sunday</option></select></div>
+        <div class="field full"><label for="task-notes">Notes (optional)</label><textarea id="task-notes" rows="2" maxlength="300" placeholder="Topics to review, materials to prepare..."></textarea></div>
+      </div>
+      <p class="form-error hidden" id="form-error"></p>
+      <div class="modal-actions"><button type="button" class="button button-quiet" data-close="task-dialog">Cancel</button><button type="submit" class="button button-primary">Save task</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="subject-dialog" class="modal modal-small">
+    <form id="subject-form">
+      <div class="modal-heading"><div><p class="eyebrow">BUILD YOUR COURSE LIST</p><h2>Add a subject</h2></div><button type="button" class="icon-button" data-close="subject-dialog" aria-label="Close">✕</button></div>
+      <div class="field"><label for="subject-name">Subject name *</label><input id="subject-name" required maxlength="60" placeholder="e.g. Business Process Management"></div>
+      <div class="field"><label for="subject-color">Color</label><select id="subject-color"><option value="lavender">Lavender</option><option value="mint">Mint</option><option value="peach">Peach</option><option value="blue">Blue</option><option value="yellow">Yellow</option></select></div>
+      <p class="form-error hidden" id="subject-error"></p>
+      <div class="modal-actions"><button type="button" class="button button-quiet" data-close="subject-dialog">Cancel</button><button type="submit" class="button button-primary">Add subject</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

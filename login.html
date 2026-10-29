@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5fc">
+    <title>Sign in | StudyFlow AI</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <main class="login-page">
+      <section class="login-card" aria-labelledby="login-title">
+        <a class="brand" href="index.html" aria-label="StudyFlow AI home">
+          <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M7 12.5c5.8-2.2 11.4-1.6 17 2.2v23c-5.6-3.8-11.2-4.4-17-2.2v-23Z"/>
+            <path d="M41 12.5c-5.8-2.2-11.4-1.6-17 2.2v23c5.6-3.8 11.2-4.4 17-2.2v-23Z"/>
+            <path d="m8 31 8-4 6 3 8-9 5 2 6-8"/>
+            <path d="M35 15h6v6"/>
+          </svg>
+          <span class="brand-copy">
+            <span class="brand-name">StudyFlow <span>AI</span></span>
+            <span class="brand-tagline">YOUR SMART STUDY PLANNER</span>
+          </span>
+        </a>
+
+        <div class="heading">
+          <p class="eyebrow">WELCOME BACK</p>
+          <h1 id="login-title">Log in to your account</h1>
+          <p class="subtitle">Pick up where you left off and keep your learning on track.</p>
+        </div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email"
+              placeholder="you@example.com" required>
+            <span class="field-error" id="email-error"></span>
+          </div>
+
+          <div class="field">
+            <div class="label-row">
+              <label for="password">Password</label>
+              <button class="text-button" type="button" data-not-ready="Password reset">
+                Forgot password?
+              </button>
+            </div>
+            <div class="password-input">
+              <input id="password" name="password" type="password"
+                autocomplete="current-password" placeholder="Enter your password"
+                minlength="8" required>
+              <button class="password-toggle" type="button" aria-label="Show password"
+                aria-pressed="false">Show</button>
+            </div>
+            <span class="field-error" id="password-error"></span>
+          </div>
+
+          <div class="form-options">
+            <label class="remember">
+              <input id="remember" name="remember" type="checkbox">
+              <span class="checkmark" aria-hidden="true"></span>
+              Remember me
+            </label>
+          </div>
+
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+          <button class="submit-button" type="submit">Log in</button>
+        </form>
+
+        <p class="signup-prompt">
+          New to StudyFlow AI?
+          <button class="text-button" type="button" data-not-ready="Account creation">Create an account</button>
+        </p>
+        <p class="security-note">
+          <span aria-hidden="true">✦</span> Your study space, organized in one place.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
